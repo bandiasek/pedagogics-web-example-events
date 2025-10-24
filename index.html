@@ -32,9 +32,7 @@
               </div>
 
               <div class="product-controls">
-                <button class="btn-minus" onclick="removeFromBasket(1)">
-                  −
-                </button>
+                <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-1">0</span>
                 <button
                   class="btn-plus"
@@ -60,9 +58,7 @@
               </div>
 
               <div class="product-controls">
-                <button class="btn-minus" onclick="removeFromBasket(2)">
-                  −
-                </button>
+                <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-2">0</span>
                 <button
                   class="btn-plus"
@@ -86,9 +82,7 @@
               </div>
 
               <div class="product-controls">
-                <button class="btn-minus" onclick="removeFromBasket(3)">
-                  −
-                </button>
+                <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-3">0</span>
                 <button
                   class="btn-plus"
@@ -114,9 +108,7 @@
               </div>
 
               <div class="product-controls">
-                <button class="btn-minus" onclick="removeFromBasket(4)">
-                  −
-                </button>
+                <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-4">0</span>
                 <button
                   class="btn-plus"
@@ -140,9 +132,7 @@
               </div>
 
               <div class="product-controls">
-                <button class="btn-minus" onclick="removeFromBasket(5)">
-                  −
-                </button>
+                <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-5">0</span>
                 <button
                   class="btn-plus"
@@ -168,9 +158,7 @@
               </div>
 
               <div class="product-controls">
-                <button class="btn-minus" onclick="removeFromBasket(6)">
-                  −
-                </button>
+                <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-6">0</span>
                 <button class="btn-plus" onclick="addToBasket(6, 'Mouse', 49)">
                   +
@@ -215,35 +203,6 @@
         }
 
         updateBasketDisplay();
-        updateProductQuantityDisplays();
-      }
-
-      // Remove one item from basket
-      function removeFromBasket(id) {
-        const existingItem = basket.find(item => item.id === id);
-
-        if (existingItem) {
-          if (existingItem.quantity > 1) {
-            existingItem.quantity -= 1;
-          } else {
-            basket = basket.filter(item => item.id !== id);
-          }
-        }
-
-        updateBasketDisplay();
-        updateProductQuantityDisplays();
-      }
-
-      // Update product quantity displays in the catalog
-      function updateProductQuantityDisplays() {
-        for (let i = 1; i <= 6; i++) {
-          const qtyDisplay = document.getElementById(`qty-${i}`);
-          const basketItem = basket.find(item => item.id === i);
-
-          if (qtyDisplay) {
-            qtyDisplay.textContent = basketItem ? basketItem.quantity : 0;
-          }
-        }
       }
 
       // Update basket display
@@ -267,14 +226,14 @@
           const itemElement = document.createElement('div');
           itemElement.className = 'basket-item';
           itemElement.innerHTML = `
-                    <div class="item-info">
-                        <h4>${item.name}</h4>
-                        <p>${item.quantity} x $${item.price}</p>
-                    </div>
-                    <p class="item-total">$${(
-                      item.price * item.quantity
-                    ).toFixed(2)}</p>
-                `;
+                          <div class="item-info">
+                              <h4>${item.name}</h4>
+                              <p>${item.quantity} x $${item.price}</p>
+                          </div>
+                          <p class="item-total">$${(
+                            item.price * item.quantity
+                          ).toFixed(2)}</p>
+                      `;
 
           basketItemsContainer.appendChild(itemElement);
           totalPrice += item.price * item.quantity;
@@ -285,7 +244,6 @@
 
       // Initialize the display
       updateBasketDisplay();
-      updateProductQuantityDisplays();
     </script>
   </body>
 </html>
