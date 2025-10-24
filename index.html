@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Shop</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>E-Shop</h1>
+      </header>
+
+      <main class="main-content">
+        <!-- Product Catalog - 75% -->
+        <div class="catalog">
+          <h2>Products</h2>
+          <div class="products-list">
+            <div
+              class="product-item"
+              data-id="1"
+              data-name="Laptop"
+              data-price="999"
+            >
+              <div class="product-info">
+                <h3>Laptop</h3>
+                <p class="description">
+                  High-performance laptop for work and gaming
+                </p>
+                <p class="price">$999</p>
+              </div>
+
+              <div class="product-controls">
+                <button class="btn-minus" onclick="removeFromBasket(1)">
+                  −
+                </button>
+                <span class="quantity-display" id="qty-1">0</span>
+                <button
+                  class="btn-plus"
+                  onclick="addToBasket(1, 'Laptop', 999)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="product-item"
+              data-id="2"
+              data-name="Smartphone"
+              data-price="599"
+            >
+              <div class="product-info">
+                <h3>Smartphone</h3>
+                <p class="description">
+                  Latest model with advanced camera features
+                </p>
+                <p class="price">$599</p>
+              </div>
+
+              <div class="product-controls">
+                <button class="btn-minus" onclick="removeFromBasket(2)">
+                  −
+                </button>
+                <span class="quantity-display" id="qty-2">0</span>
+                <button
+                  class="btn-plus"
+                  onclick="addToBasket(2, 'Smartphone', 599)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="product-item"
+              data-id="3"
+              data-name="Headphones"
+              data-price="199"
+            >
+              <div class="product-info">
+                <h3>Headphones</h3>
+                <p class="description">Wireless noise-canceling headphones</p>
+                <p class="price">$199</p>
+              </div>
+
+              <div class="product-controls">
+                <button class="btn-minus" onclick="removeFromBasket(3)">
+                  −
+                </button>
+                <span class="quantity-display" id="qty-3">0</span>
+                <button
+                  class="btn-plus"
+                  onclick="addToBasket(3, 'Headphones', 199)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="product-item"
+              data-id="4"
+              data-name="Tablet"
+              data-price="399"
+            >
+              <div class="product-info">
+                <h3>Tablet</h3>
+                <p class="description">
+                  Portable tablet perfect for reading and browsing
+                </p>
+                <p class="price">$399</p>
+              </div>
+
+              <div class="product-controls">
+                <button class="btn-minus" onclick="removeFromBasket(4)">
+                  −
+                </button>
+                <span class="quantity-display" id="qty-4">0</span>
+                <button
+                  class="btn-plus"
+                  onclick="addToBasket(4, 'Tablet', 399)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="product-item"
+              data-id="5"
+              data-name="Keyboard"
+              data-price="89"
+            >
+              <div class="product-info">
+                <h3>Keyboard</h3>
+                <p class="description">Mechanical keyboard with RGB lighting</p>
+                <p class="price">$89</p>
+              </div>
+
+              <div class="product-controls">
+                <button class="btn-minus" onclick="removeFromBasket(5)">
+                  −
+                </button>
+                <span class="quantity-display" id="qty-5">0</span>
+                <button
+                  class="btn-plus"
+                  onclick="addToBasket(5, 'Keyboard', 89)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="product-item"
+              data-id="6"
+              data-name="Mouse"
+              data-price="49"
+            >
+              <div class="product-info">
+                <h3>Mouse</h3>
+                <p class="description">
+                  Wireless optical mouse with precision tracking
+                </p>
+                <p class="price">$49</p>
+              </div>
+
+              <div class="product-controls">
+                <button class="btn-minus" onclick="removeFromBasket(6)">
+                  −
+                </button>
+                <span class="quantity-display" id="qty-6">0</span>
+                <button class="btn-plus" onclick="addToBasket(6, 'Mouse', 49)">
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shopping Basket - 25% -->
+        <div class="basket-sidebar">
+          <h2>Shopping Basket</h2>
+
+          <div id="basket-items"></div>
+          <div class="basket-total">
+            <p>
+              <strong>Total: $<span id="total-price">0</span></strong>
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Basket array to store items
+      let basket = [];
+
+      // Add item to basket
+      function addToBasket(id, name, price) {
+        // Check if item already exists in basket
+        const existingItem = basket.find(item => item.id === id);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          basket.push({
+            id: id,
+            name: name,
+            price: price,
+            quantity: 1,
+          });
+        }
+
+        updateBasketDisplay();
+        updateProductQuantityDisplays();
+      }
+
+      // Remove one item from basket
+      function removeFromBasket(id) {
+        const existingItem = basket.find(item => item.id === id);
+
+        if (existingItem) {
+          if (existingItem.quantity > 1) {
+            existingItem.quantity -= 1;
+          } else {
+            basket = basket.filter(item => item.id !== id);
+          }
+        }
+
+        updateBasketDisplay();
+        updateProductQuantityDisplays();
+      }
+
+      // Update product quantity displays in the catalog
+      function updateProductQuantityDisplays() {
+        for (let i = 1; i <= 6; i++) {
+          const qtyDisplay = document.getElementById(`qty-${i}`);
+          const basketItem = basket.find(item => item.id === i);
+
+          if (qtyDisplay) {
+            qtyDisplay.textContent = basketItem ? basketItem.quantity : 0;
+          }
+        }
+      }
+
+      // Update basket display
+      function updateBasketDisplay() {
+        const basketItemsContainer = document.getElementById('basket-items');
+        const totalPriceElement = document.getElementById('total-price');
+
+        // Clear current display
+        basketItemsContainer.innerHTML = '';
+
+        if (basket.length === 0) {
+          basketItemsContainer.innerHTML =
+            '<p class="empty-basket">Your basket is empty</p>';
+          totalPriceElement.textContent = '0';
+          return;
+        }
+
+        let totalPrice = 0;
+
+        basket.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.className = 'basket-item';
+          itemElement.innerHTML = `
+                    <div class="item-info">
+                        <h4>${item.name}</h4>
+                        <p>${item.quantity} x $${item.price}</p>
+                    </div>
+                    <p class="item-total">$${(
+                      item.price * item.quantity
+                    ).toFixed(2)}</p>
+                `;
+
+          basketItemsContainer.appendChild(itemElement);
+          totalPrice += item.price * item.quantity;
+        });
+
+        totalPriceElement.textContent = totalPrice.toFixed(2);
+      }
+
+      // Initialize the display
+      updateBasketDisplay();
+      updateProductQuantityDisplays();
+    </script>
+  </body>
+</html>
