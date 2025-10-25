@@ -34,12 +34,7 @@
               <div class="product-controls">
                 <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-1">0</span>
-                <button
-                  class="btn-plus"
-                  onclick="addToBasket(1, 'Laptop', 999)"
-                >
-                  +
-                </button>
+                <button class="btn-plus">+</button>
               </div>
             </div>
 
@@ -60,12 +55,7 @@
               <div class="product-controls">
                 <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-2">0</span>
-                <button
-                  class="btn-plus"
-                  onclick="addToBasket(2, 'Smartphone', 599)"
-                >
-                  +
-                </button>
+                <button class="btn-plus">+</button>
               </div>
             </div>
 
@@ -84,12 +74,7 @@
               <div class="product-controls">
                 <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-3">0</span>
-                <button
-                  class="btn-plus"
-                  onclick="addToBasket(3, 'Headphones', 199)"
-                >
-                  +
-                </button>
+                <button class="btn-plus">+</button>
               </div>
             </div>
 
@@ -110,12 +95,7 @@
               <div class="product-controls">
                 <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-4">0</span>
-                <button
-                  class="btn-plus"
-                  onclick="addToBasket(4, 'Tablet', 399)"
-                >
-                  +
-                </button>
+                <button class="btn-plus">+</button>
               </div>
             </div>
 
@@ -134,12 +114,7 @@
               <div class="product-controls">
                 <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-5">0</span>
-                <button
-                  class="btn-plus"
-                  onclick="addToBasket(5, 'Keyboard', 89)"
-                >
-                  +
-                </button>
+                <button class="btn-plus">+</button>
               </div>
             </div>
 
@@ -160,9 +135,7 @@
               <div class="product-controls">
                 <button class="btn-minus">−</button>
                 <span class="quantity-display" id="qty-6">0</span>
-                <button class="btn-plus" onclick="addToBasket(6, 'Mouse', 49)">
-                  +
-                </button>
+                <button class="btn-plus">+</button>
               </div>
             </div>
           </div>
@@ -181,69 +154,5 @@
         </div>
       </main>
     </div>
-
-    <script>
-      // Basket array to store items
-      let basket = [];
-
-      // Add item to basket
-      function addToBasket(id, name, price) {
-        // Check if item already exists in basket
-        const existingItem = basket.find(item => item.id === id);
-
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
-          basket.push({
-            id: id,
-            name: name,
-            price: price,
-            quantity: 1,
-          });
-        }
-
-        updateBasketDisplay();
-      }
-
-      // Update basket display
-      function updateBasketDisplay() {
-        const basketItemsContainer = document.getElementById('basket-items');
-        const totalPriceElement = document.getElementById('total-price');
-
-        // Clear current display
-        basketItemsContainer.innerHTML = '';
-
-        if (basket.length === 0) {
-          basketItemsContainer.innerHTML =
-            '<p class="empty-basket">Your basket is empty</p>';
-          totalPriceElement.textContent = '0';
-          return;
-        }
-
-        let totalPrice = 0;
-
-        basket.forEach(item => {
-          const itemElement = document.createElement('div');
-          itemElement.className = 'basket-item';
-          itemElement.innerHTML = `
-                          <div class="item-info">
-                              <h4>${item.name}</h4>
-                              <p>${item.quantity} x $${item.price}</p>
-                          </div>
-                          <p class="item-total">$${(
-                            item.price * item.quantity
-                          ).toFixed(2)}</p>
-                      `;
-
-          basketItemsContainer.appendChild(itemElement);
-          totalPrice += item.price * item.quantity;
-        });
-
-        totalPriceElement.textContent = totalPrice.toFixed(2);
-      }
-
-      // Initialize the display
-      updateBasketDisplay();
-    </script>
   </body>
 </html>
